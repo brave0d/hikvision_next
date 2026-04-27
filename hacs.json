@@ -1,6 +1,5 @@
 {
   "name": "Hikvision NVR / IP Camera",
   "render_readme": true,
-  "homeassistant": "2022.8b0",
-  "beta": true
+  "homeassistant": "2022.8b0"
 }
