@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 @dataclass
 class AlarmServer:
@@ -93,6 +95,7 @@ class AnalogCamera:
     connection_type: str
     streams: list[CameraStreamInfo] = field(default_factory=list)
     events_info: list[EventInfo] = field(default_factory=list)
+    supplement_light: "SupplementLight" | None = None
 @dataclass
 class IPCamera(AnalogCamera):
     """IP/Digital camera info."""
@@ -103,3 +106,32 @@ class IPCamera(AnalogCamera):
 class ProtocolsInfo:
     """Holds info of supported protocols."""
     rtsp_port: int = 554
+
+
+@dataclass
+class SupplementLightCapabilities:
+    """Holds supplement light capabilities."""
+
+    supported_modes: list[str] = field(default_factory=list)
+    supported_regulation_modes: list[str] = field(default_factory=list)
+    brightness_min: int = 0
+    brightness_max: int = 100
+    auto_mode_brightness_configurable: bool = False
+
+
+@dataclass
+class SupplementLightState:
+    """Represents supplement light state."""
+
+    mode: str
+    brightness: int
+    regulation_mode: str | None = None
+
+
+@dataclass
+class SupplementLight:
+    """Aggregates supplement light capabilities and state."""
+
+    channel_id: int
+    capabilities: SupplementLightCapabilities
+    state: SupplementLightState | None = None
